@@ -78,12 +78,13 @@ export async function POST(req: Request) {
       console.log("Response from server:", response.data);
       // Handle success, update state, or perform other actions
 
-      const newUser: any = JSON.parse(JSON.stringify(response));
+      const newUser: any = JSON.parse(JSON.stringify(response.data));
 
       if (newUser) {
         await clerkClient.users.updateUserMetadata(id, {
           publicMetadata: {
             userId: newUser._id,
+            role: newUser.role,
           },
         });
       }
@@ -110,13 +111,15 @@ export async function POST(req: Request) {
   //   return NextResponse.json({ message: "OK", user: updatedUser });
   // }
 
-  // if (eventType === "user.deleted") {
-  //   const { id } = evt.data;
+  if (eventType === "user.deleted") {
+    const { id } = evt.data;
 
-  //   const deletedUser = await deleteUser(id!);
+    const deletedUser = await axios.delete(
+      `https://blackdiamoundevents-api-production.up.railway.app/api/v1/users/delete/${id!}`
+    );
 
-  //   return NextResponse.json({ message: "OK", user: deletedUser });
-  // }
+    return NextResponse.json({ message: "OK", user: deletedUser });
+  }
 
   return new Response("", { status: 200 });
 }
