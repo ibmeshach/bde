@@ -4,21 +4,8 @@ import { WebhookEvent } from "@clerk/nextjs/server";
 // import { createUser, deleteUser, updateUser } from '@/lib/actions/user.actions'
 import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { useRegister } from "@/hooks/useAuthMethods";
-
-const onError = async (error: any) => {
-  console.log(error);
-};
-const onSuccess = (data: any) => {
-  // const message = data?.data?.Message;
-  console.log(data);
-};
-
-const {
-  mutate: register,
-  isLoading: registerLoading,
-  isError: registerError,
-} = useRegister(onError, onSuccess);
+import axios from "axios";
+import { handleError } from "@/lib/utils";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -83,17 +70,29 @@ export async function POST(req: Request) {
       photo: image_url,
     };
 
-    const newUser: any = await register(user);
+    try {
+      const response = await axios.post(
+        "https://blackdiamoundevents-api-production.up.railway.app/api/v1/users/register",
+        user
+      );
+      console.log("Response from server:", response.data);
+      // Handle success, update state, or perform other actions
 
-    if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id,
-        },
-      });
+      const newUser: any = JSON.parse(JSON.stringify(response));
+
+      if (newUser) {
+        await clerkClient.users.updateUserMetadata(id, {
+          publicMetadata: {
+            userId: newUser._id,
+          },
+        });
+      }
+
+      return NextResponse.json({ message: "OK", user: newUser });
+    } catch (error) {
+      console.error("Error:", error);
+      handleError(error);
     }
-
-    return NextResponse.json({ message: "OK", user: newUser });
   }
 
   // if (eventType === "user.updated") {

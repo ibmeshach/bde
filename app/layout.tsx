@@ -23,15 +23,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = new QueryClient();
-
   return (
     <ClerkProvider>
-      <QueryClientProvider client={queryClient}>
-        <html lang="en">
-          <body className={poppins.variable}>{children}</body>
-        </html>
-      </QueryClientProvider>
+      <html lang="en">
+        <body className={poppins.variable}>{children}</body>
+      </html>
     </ClerkProvider>
   );
 }

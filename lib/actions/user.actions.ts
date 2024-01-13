@@ -9,7 +9,6 @@ import { revalidatePath } from "next/cache";
 import { handleError } from "@/lib/utils";
 
 import { CreateUserParams, UpdateUserParams } from "@/types";
-import { useRegister } from "@/hooks/useAuthMethods";
 
 // export async function createUser(user: CreateUserParams) {
 //   try {
