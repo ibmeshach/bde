@@ -6,6 +6,7 @@ import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import axios from "axios";
 import { handleError } from "@/lib/utils";
+import { createUser, deleteUser } from "@/lib/actions/user.actions";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -71,10 +72,12 @@ export async function POST(req: Request) {
     };
 
     try {
-      const response = await axios.post(
-        "https://blackdiamoundevents-api-production.up.railway.app/api/v1/users/register",
-        user
-      );
+      // const response = await axios.post(
+      //   "https://blackdiamoundevents-api-production.up.railway.app/api/v1/users/register",
+      //   user
+      // );
+
+      const response = await createUser(user);
       console.log("Response from server:", response.data);
       // Handle success, update state, or perform other actions
 
@@ -114,11 +117,18 @@ export async function POST(req: Request) {
   if (eventType === "user.deleted") {
     const { id } = evt.data;
 
-    const deletedUser = await axios.delete(
-      `https://blackdiamoundevents-api-production.up.railway.app/api/v1/users/delete/${id!}`
-    );
+    try {
+      // const deletedUser = await axios.delete(
+      //   `https://blackdiamoundevents-api-production.up.railway.app/api/v1/users/delete/${id!}`
+      // );
 
-    return NextResponse.json({ message: "OK", user: deletedUser });
+      const deletedUser = await deleteUser(id!);
+
+      return NextResponse.json({ message: "OK", user: deletedUser.data });
+    } catch (error) {
+      console.error("Error:", error);
+      handleError(error);
+    }
   }
 
   return new Response("", { status: 200 });

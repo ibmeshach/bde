@@ -1,24 +1,19 @@
-"use server";
+import { request } from "../../utils/axios-utils";
 
-import { revalidatePath } from "next/cache";
+export async function createUser(user: any) {
+  return request({
+    url: `users/register`,
+    method: "post",
+    data: user,
+  });
+}
 
-// import { connectToDatabase } from '@/lib/database'
-// import User from '@/lib/database/models/user.model'
-// import Order from '@/lib/database/models/order.model'
-// import Event from '@/lib/database/models/event.model'
-import { handleError } from "@/lib/utils";
-
-import { CreateUserParams, UpdateUserParams } from "@/types";
-
-// export async function createUser(user: CreateUserParams) {
-//   try {
-
-//     const newUser = await useRegister(user)
-//     return JSON.parse(JSON.stringify(newUser))
-//   } catch (error) {
-//     handleError(error)
-//   }
-// }
+export async function deleteUser(clerkId: string) {
+  return request({
+    url: `users/delete/${clerkId}`,
+    method: "delete",
+  });
+}
 
 // export async function getUserById(userId: string) {
 //   try {

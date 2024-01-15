@@ -1,17 +1,14 @@
 import axios from "axios";
-// import Cookies from "js-cookie";
 
 const client = axios.create({
-  baseURL: "https://blackdiamoundevents-api-production.up.railway.app/api",
+  baseURL: "https://blackdiamoundevents-api-production.up.railway.app/api/v1/",
 });
 
-export const request = ({ ...options }) => {
-  // const token = Cookies.get("jwt"); // Get the JWT token from the cookie
-
-  // if (token) {
-  //   // Set the Authorization header with the JWT token
-  //   client.defaults.headers.common.Authorization = `Bearer ${token}`;
-  // }
+export const request = ({ clerkId, ...options }: any) => {
+  if (clerkId) {
+    // Set the Authorization header with the JWT token
+    client.defaults.headers.common.Authorization = `Bearer ${clerkId}`;
+  }
 
   client.defaults.withCredentials = true;
 
