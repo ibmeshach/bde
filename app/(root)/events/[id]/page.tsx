@@ -1,3 +1,4 @@
+import CheckoutButton from "@/components/shared/CheckoutButton";
 import Collection from "@/components/shared/Collection";
 import {
   getEventById,
@@ -5,6 +6,7 @@ import {
 } from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
+import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 
 const EventDetails = async ({
@@ -18,6 +20,8 @@ const EventDetails = async ({
     eventId: event.data?._id,
     page: searchParams.page as string,
   });
+
+  const { userId, orgRole }: { userId: any; orgRole: any } = auth();
 
   return (
     <>
@@ -45,17 +49,17 @@ const EventDetails = async ({
                   </p>
                 </div>
 
-                <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
+                {/* <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
                   by{" "}
                   <span className="text-primary-500">
                     {event.data?.organizer?.firstName}{" "}
                     {event.data?.organizer?.lastName}
                   </span>
-                </p>
+                </p> */}
               </div>
             </div>
 
-            {/* <CheckoutButton event={event} /> */}
+            <CheckoutButton event={event.data} userId={userId} />
 
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">

@@ -20,15 +20,15 @@ const MobileNav = () => {
             alt="menu"
             width={24}
             height={24}
-            className="cursor-pointer"
+            className="cursor-pointer "
           />
         </SheetTrigger>
         <SheetContent className="flex flex-col gap-6 bg-white md:hidden">
           <Image
-            src="/assets/images/logo.svg"
+            src="/assets/icons/logo.svg"
             alt="logo"
-            width={128}
-            height={38}
+            width={60}
+            height={58}
           />
           <Separator className="border border-gray-50" />
           <NavItems />
