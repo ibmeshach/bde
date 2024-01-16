@@ -11,8 +11,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Evently",
-  description: "Evently is a platform for event management.",
+  title: "BlackDiamondEntertainment",
+  description:
+    "Music festivals, concerts, and events in the greater Maine area.  Monthly @popupportlandme on 2nd Sunday’s  2nd annual @summersidefestival 2019 TBA",
   icons: {
     icon: "/assets/images/logo.svg",
   },

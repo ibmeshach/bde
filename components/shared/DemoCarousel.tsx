@@ -30,47 +30,30 @@ const DemoCarousel = () => {
     >
       <div className="relative">
         <Image
-          src="/assets/images/slide1.jpg"
+          src="/assets/images/bde3.jpg"
           alt="hero"
           width={1000}
           height={1000}
-          className="object-cover" // Add this class to make sure the image covers the entire container
-        />
-        {/* <p>
-          {" "}
-          Unlock the Magic of Events at Black Diamond Entertainment. Browse,
-          Book, and Manage Tickets Effortlessly. Your One-Stop Shop for
-          Creating, Buying, and Enjoying Unforgettable Experiences!
-        </p> */}
-      </div>
-
-      <div className="relative">
-        <Image
-          src="/assets/images/slide2.jpg"
-          alt="hero"
-          width={1000}
-          height={2000}
+          className="rounded-lg"
         />{" "}
-        {/* <p>
-          {" "}
-          Unlock the Magic of Events at Black Diamond Entertainment. Browse,
-          Book, and Manage Tickets Effortlessly. Your One-Stop Shop for
-          Creating, Buying, and Enjoying Unforgettable Experiences!
-        </p> */}
       </div>
       <div className="relative">
         <Image
-          src="/assets/images/slide3.jpg"
+          src="/assets/images/bde.jpg"
           alt="hero"
           width={1000}
           height={1000}
+          className="rounded-lg"
         />{" "}
-        {/* <p>
-          {" "}
-          Unlock the Magic of Events at Black Diamond Entertainment. Browse,
-          Book, and Manage Tickets Effortlessly. Your One-Stop Shop for
-          Creating, Buying, and Enjoying Unforgettable Experiences!
-        </p> */}
+      </div>
+      <div className="relative">
+        <Image
+          src="/assets/images/bde2.jpg"
+          alt="hero"
+          width={1000}
+          height={1000}
+          className="rounded-lg"
+        />{" "}
       </div>
     </Carousel>
   );

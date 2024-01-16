@@ -8,7 +8,13 @@ import NavItemsAdmin from "./NavItemsAdmin";
 import Media from "react-media";
 
 const Header = async () => {
-  const user = await currentUser();
+  let user = await currentUser();
+  try {
+    user = await currentUser();
+    // Rest of the code
+  } catch (error) {
+    console.error("Error in Header component:", error);
+  }
 
   return (
     <header className="w-full border-b bg-[#00192F]">

@@ -17,7 +17,7 @@ const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
 
   // const isEventCreator = userId === event.organizer._id.toString();
   return (
-    <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
+    <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
       <Link
         href={`/events/${event._id}`}
         style={{ backgroundImage: `url(${event.imageUrl})` }}
@@ -40,9 +40,15 @@ const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
         </div>
       )}
 
-      <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
+      <div className="flex min-h-[150px] flex-col gap-2 p-5 md:gap-2">
+        <Link href={`/events/${event._id}`}>
+          <p className="p-medium-16 md:p-medium-20 text-capitalize line-clamp-2 flex-1 text-black">
+            {event.title}
+          </p>
+        </Link>
+
         {!hidePrice && (
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full justify-between">
             <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60">
               {event.isFree ? "FREE" : `$${event.price}`}
             </span>
@@ -51,16 +57,9 @@ const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
             </p>
           </div>
         )}
-
         <p className="p-medium-16 p-medium-18 text-grey-500">
           {formatDateTime(event.startDateTime).dateTime}
         </p>
-
-        <Link href={`/events/${event._id}`}>
-          <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
-            {event.title}
-          </p>
-        </Link>
 
         <div className="flex-between w-full">
           {/* <p className="p-medium-14 md:p-medium-16 text-grey-600">

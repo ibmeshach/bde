@@ -9,8 +9,12 @@ import {
 import Image from "next/image";
 import { Separator } from "../ui/separator";
 import NavItems from "./NavItems";
+import { SignedIn, SignedOut, UserButton, currentUser } from "@clerk/nextjs";
+import NavItemsAdmin from "./NavItemsAdmin";
 
-const MobileNav = () => {
+const MobileNav = async () => {
+  const user = await currentUser();
+
   return (
     <nav className="md:hidden">
       <Sheet>
@@ -23,7 +27,7 @@ const MobileNav = () => {
             className="cursor-pointer "
           />
         </SheetTrigger>
-        <SheetContent className="flex flex-col gap-6 bg-white md:hidden">
+        <SheetContent className="flex flex-col gap-6 bg-[#00192F] md:hidden">
           <Image
             src="/assets/icons/logo.svg"
             alt="logo"
@@ -31,7 +35,24 @@ const MobileNav = () => {
             height={58}
           />
           <Separator className="border border-gray-50" />
-          <NavItems />
+          {user?.publicMetadata?.role == "admin" ? (
+            <>
+              <SignedIn>
+                <nav className="md:flex-between md:hidden w-full max-w-xs">
+                  <NavItemsAdmin />
+                </nav>
+              </SignedIn>
+              <SignedOut>
+                <nav className="md:flex-between md:hidden w-full max-w-xs">
+                  <NavItems />
+                </nav>
+              </SignedOut>
+            </>
+          ) : (
+            <nav className="md:flex-between md:hidden w-full max-w-xs">
+              <NavItems />
+            </nav>
+          )}
         </SheetContent>
       </Sheet>
     </nav>
